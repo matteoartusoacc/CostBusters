@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostBusters — pitch</title>
+  <link rel="stylesheet" href="css/deck.css">
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <section class="slide slide-cover" data-title="Copertina">
+      <div class="cover-mark">
+        <svg viewBox="0 0 32 32" width="72" height="72" aria-hidden="true">
+          <path class="ghost" d="M7 29V14a9 9 0 0 1 18 0v15l-3-2.6-3 2.6-3-2.6-3 2.6-3-2.6z"/>
+          <circle class="eye" cx="12.5" cy="14.5" r="1.9"/>
+          <circle class="eye" cx="19.5" cy="14.5" r="1.9"/>
+        </svg>
+      </div>
+      <h1>CostBusters<span class="chev">&gt;</span></h1>
+      <p class="cover-claim">C'è un costo nascosto nel tuo investimento? Sai chi chiamare.</p>
+      <p class="cover-meta">Hackathon ottobre 2026 · Tema: Inclusione finanziaria</p>
+    </section>
+
+    <section class="slide" data-title="Il problema">
+      <p class="kicker">Il problema</p>
+      <h2>Il prospetto dice tutto. E non si capisce niente.</h2>
+      <div class="two-col">
+        <div>
+          <p class="lead">Un investitore retail legge «TER 2,10%» e non sa tradurlo in euro. Nessun documento gli dice
+            la cosa che gli interessa davvero: <strong>quanto gli resta alla fine</strong>.</p>
+          <p class="note">I costi sono dichiarati per legge, ma sparsi, in percentuale e su basi di calcolo diverse:
+            alcuni sul versato, alcuni sul patrimonio ogni anno, alcuni solo quando esci.</p>
+        </div>
+        <ul class="cost-cloud">
+          <li>Commissione di ingresso</li>
+          <li class="hid">TER</li>
+          <li>Commissione di gestione</li>
+          <li class="hid">Spread denaro-lettera</li>
+          <li class="hid">Costi di transazione</li>
+          <li>Commissione di uscita</li>
+          <li class="hid">Tasse sul guadagno</li>
+          <li class="hid">Inflazione</li>
+        </ul>
+      </div>
+      <p class="legend-note"><span class="dot"></span> In viola i costi che l'investitore quasi mai vede quantificati.</p>
+    </section>
+
+    <section class="slide" data-title="Il numero">
+      <p class="kicker">Perché conta</p>
+      <h2>Su un fondo bilanciato d'esempio, in 10 anni</h2>
+      <div class="stat-row">
+        <div class="stat">
+          <p class="stat-label">Valore lordo</p>
+          <p class="stat-value">16.289 €</p>
+          <p class="stat-desc">Con il rendimento ipotizzato del 5%, senza costi né tasse.</p>
+        </div>
+        <div class="stat stat-accent">
+          <p class="stat-label">Se ne va in costi</p>
+          <p class="stat-value">6.433 €</p>
+          <p class="stat-desc">Commissioni, TER, transazioni, tasse e inflazione.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-label">Ti resta</p>
+          <p class="stat-value">9.857 €</p>
+          <p class="stat-desc">In euro di oggi, su 10.000 € investiti.</p>
+        </div>
+      </div>
+      <p class="note">Il 39% del valore lordo non arriva all'investitore. Non è un giudizio sul prodotto:
+        è una grandezza che oggi nessuno gli mette davanti.</p>
+    </section>
+
+    <section class="slide" data-title="La soluzione">
+      <p class="kicker">La soluzione</p>
+      <h2>Incolli il documento. Vedi quanto ti resta.</h2>
+      <ol class="steps">
+        <li><span class="step-n">1</span>
+          <p class="step-t">Incolla o carica</p>
+          <p class="step-d">Testo del prospetto, del KID o del report. Oppure il PDF: il testo viene estratto nel browser.</p>
+        </li>
+        <li><span class="step-n">2</span>
+          <p class="step-t">CostBusters scova i costi</p>
+          <p class="step-d">Nove voci, esplicite e implicite, ognuna con la frase del documento da cui è stata presa.</p>
+        </li>
+        <li><span class="step-n">3</span>
+          <p class="step-t">Vedi la risposta in euro</p>
+          <p class="step-d">Quanto resta a 1, 3, 5 e 10 anni, con il peso di ogni singola voce.</p>
+        </li>
+      </ol>
+      <p class="note">Nessun dato esce dal browser. Nessun account, nessun salvataggio.</p>
+    </section>
+
+    <section class="slide" data-title="Demo">
+      <p class="kicker">Demo</p>
+      <h2>Dal documento alla domanda che conta</h2>
+      <p class="lead demo-q">«Dei tuoi 10.000 €, quanto ti resta tra 10 anni?»</p>
+      <p class="note">Demo dal vivo: <a href="../demo/index.html">app/demo/index.html</a> ·
+        documenti pronti in <code>app/demo/samples/</code></p>
+      <ul class="bullets">
+        <li>Polizza unit-linked: il tool trova 4 voci su 9 e dichiara apertamente cosa non riesce a stimare.</li>
+        <li>Ogni numero è tracciabile: «Da dove viene questo numero» mostra la frase originale.</li>
+        <li>Cambi un'ipotesi e tutto si ricalcola davanti al cliente.</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-title="Onestà">
+      <p class="kicker">La scelta che ci distingue</p>
+      <h2>Quando non sappiamo, lo diciamo.</h2>
+      <div class="two-col">
+        <div>
+          <p class="lead">Il modo facile sarebbe mettere uno zero, o una «stima tipica di mercato». Entrambe
+            raccontano una bugia precisa al centesimo.</p>
+          <p class="note">Se il documento non dice quanto vale una voce, CostBusters non la stima e non la dà per zero:
+            la lascia fuori dal calcolo, lo dichiara, e trasforma il buco in <strong>domande concrete da fare al
+            consulente</strong>. Il risultato diventa «ti resta <em>al massimo</em> X».</p>
+        </div>
+        <div class="warn-card">
+          <p class="warn-title"><span class="warn-icon">!</span> Il documento non dice quanto vale questo costo</p>
+          <p class="warn-sub">Non lo stimiamo e non lo diamo per zero: lo lasciamo fuori dal calcolo. Chiedi al tuo consulente:</p>
+          <ul>
+            <li>Qual è il TER annuo di questo prodotto?</li>
+            <li>La commissione di gestione è già compresa nel TER o si somma?</li>
+            <li>Esiste anche una commissione di performance?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Confine">
+      <p class="kicker">Il confine</p>
+      <h2>Educazione finanziaria, non consulenza.</h2>
+      <div class="two-col">
+        <div class="do-col">
+          <p class="col-head">Cosa fa</p>
+          <ul class="bullets">
+            <li>Mostra quanto costa uno strumento, in euro e nel tempo</li>
+            <li>Spiega ogni voce in parole semplici</li>
+            <li>Rende ispezionabili formule e ipotesi</li>
+            <li>Suggerisce cosa chiedere a un professionista</li>
+          </ul>
+        </div>
+        <div class="dont-col">
+          <p class="col-head">Cosa non fa mai</p>
+          <ul class="bullets">
+            <li>Dire se conviene o se «vale la pena»</li>
+            <li>Consigliare di comprare, vendere o mantenere</li>
+            <li>Classificare prodotti come migliori o peggiori</li>
+            <li>Sostituire un consulente abilitato</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">È un vincolo di prodotto, non una nota a piè di pagina: il disclaimer è sempre visibile
+        nell'interfaccia ed è scritto nell'HTML, così resta leggibile anche se il codice va in errore.</p>
+    </section>
+
+    <section class="slide" data-title="Come funziona">
+      <p class="kicker">Sotto il cofano</p>
+      <h2>Trasparente anche nel calcolo</h2>
+      <div class="two-col">
+        <div>
+          <ul class="bullets">
+            <li><strong>Estrazione</strong>: parole chiave e finestra di prossimità, per reggere le formulazioni
+              più diverse («commissione di gestione: 1,80%» e «1,80% a titolo di commissione di gestione»).</li>
+            <li><strong>Calcolo a cascata</strong>: i costi si applicano uno alla volta, così l'impatto in euro di
+              ciascuno tiene conto dei precedenti e le tre parti del grafico sommano sempre al valore lordo.</li>
+            <li><strong>Niente doppi conteggi</strong>: se il TER include già la gestione, contiamo solo la differenza.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="col-head">Scelte tecniche</p>
+          <ul class="bullets">
+            <li>HTML, CSS e JavaScript puri: si apre con doppio clic, nessuna installazione</li>
+            <li>Elaborazione solo lato client: il documento non lascia il computer</li>
+            <li>PDF letti nel browser con pdf.js; i PDF scansionati sono un limite dichiarato, non un errore nascosto</li>
+            <li>Formule in chiaro nell'interfaccia, con i numeri sostituiti</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Claude Code">
+      <p class="kicker">Come l'abbiamo costruito</p>
+      <h2>Claude Code come ambiente di sviluppo</h2>
+      <div class="two-col">
+        <div>
+          <ul class="bullets">
+            <li><strong>Idea → requisiti</strong>: il caso d'uso è diventato un documento di requisiti tracciabili,
+              con criteri di accettazione per ogni funzionalità.</li>
+            <li><strong>Requisiti → prototipo</strong>: demo completa generata e poi rifinita in dialogo.</li>
+            <li><strong>Verifica</strong>: estrazione e calcoli provati su documenti di esempio e PDF reali a ogni giro.</li>
+            <li><strong>Documentazione viva</strong>: scelte e vincoli scritti nel repo mentre il codice cambiava.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="col-head">Il contributo più utile</p>
+          <p class="lead">Il rischio del confine educazione/consulenza è emerso <strong>prima</strong> di scrivere
+            codice, ed è diventato un vincolo verificabile invece di un problema da scoprire in demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-title="Limiti">
+      <p class="kicker">Onestà, anche su di noi</p>
+      <h2>Limiti dichiarati e prossimi passi</h2>
+      <div class="two-col">
+        <div>
+          <p class="col-head">Oggi non fa</p>
+          <ul class="bullets">
+            <li>OCR di PDF scansionati come immagine</li>
+            <li>Tabelle complesse e layout multi-colonna</li>
+            <li>Casi fiscali particolari (titoli di Stato al 12,5%, imposta di bollo)</li>
+            <li>Confronto tra prodotti: è una scelta, non una mancanza</li>
+          </ul>
+        </div>
+        <div>
+          <p class="col-head">Prossimi passi</p>
+          <ul class="bullets">
+            <li>Estrazione assistita da un modello linguistico per i documenti meno regolari</li>
+            <li>Copertura fiscale per tipologia di strumento</li>
+            <li>Esportazione delle domande da portare al consulente</li>
+            <li>Validazione dei testi con educatori finanziari</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide slide-end" data-title="Chiusura">
+      <h2 class="end-claim">La trasparenza dei costi è il primo gradino<br>dell'inclusione finanziaria.</h2>
+      <p class="cover-claim">CostBusters<span class="chev">&gt;</span></p>
+      <p class="cover-meta">Grazie · Domande</p>
+    </section>
+
+  </div>
+
+  <nav class="deck-nav" aria-label="Navigazione presentazione">
+    <button type="button" id="prev" aria-label="Slide precedente">&#8592;</button>
+    <span class="counter"><span id="current">1</span> / <span id="total">1</span></span>
+    <button type="button" id="next" aria-label="Slide successiva">&#8594;</button>
+  </nav>
+  <div class="progress"><div class="progress-bar" id="progress-bar"></div></div>
+  <p class="deck-hint" id="hint">Frecce o barra spaziatrice per navigare · F per schermo intero</p>
+
+  <script src="js/deck.js"></script>
+</body>
+</html>

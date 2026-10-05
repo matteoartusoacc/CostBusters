@@ -1,0 +1,245 @@
+/* Accenture-flavoured deck: purple accent (#A100FF), black/white base, the ">" as the accent mark. */
+:root {
+  --purple: #a100ff;
+  --purple-deep: #7500c0;
+  --purple-wash: rgba(161, 0, 255, 0.10);
+  --ink: #000000;
+  --ink-2: #4a4a4a;
+  --muted: #7c7c7c;
+  --surface: #ffffff;
+  --page: #f4f4f4;
+  --rule: #e0e0e0;
+  --warning: #fab219;
+  --font: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font);
+  overflow: hidden;
+}
+
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+a { color: var(--purple-deep); }
+
+/* ---------- Slide frame ---------- */
+.deck { height: 100%; }
+
+.slide {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 7vh 8vw 11vh;
+  background: var(--surface);
+  animation: fade 220ms ease-out;
+}
+.slide.is-active { display: flex; }
+
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .slide { animation: none; } }
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 1.4vh;
+}
+
+h1 { font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; letter-spacing: -0.03em; margin: 0; line-height: 1; }
+h2 {
+  font-size: clamp(1.7rem, 3.4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  margin: 0 0 3vh;
+  max-width: 22ch;
+}
+.chev { color: var(--purple); margin-left: 0.06em; }
+
+.lead { font-size: clamp(1rem, 1.6vw, 1.45rem); line-height: 1.45; max-width: 46ch; }
+.note { font-size: clamp(0.85rem, 1.15vw, 1.05rem); color: var(--ink-2); line-height: 1.5; max-width: 72ch; margin-top: 2.2vh; }
+.col-head {
+  font-size: clamp(0.8rem, 1.05vw, 0.95rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 1.4vh;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; align-items: start; }
+
+.bullets li {
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: 1.5vh;
+  font-size: clamp(0.9rem, 1.25vw, 1.15rem);
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.bullets li strong { color: var(--ink); }
+.bullets li::before {
+  content: ">";
+  position: absolute;
+  left: 0;
+  top: -0.05em;
+  color: var(--purple);
+  font-weight: 700;
+}
+
+/* ---------- Cover & closing ---------- */
+.slide-cover, .slide-end { background: var(--ink); color: var(--surface); }
+.slide-cover .cover-meta, .slide-end .cover-meta { color: #a8a8a8; }
+.cover-mark { margin-bottom: 3vh; }
+.cover-mark .ghost { fill: var(--surface); }
+.cover-mark .eye { fill: var(--ink); }
+.cover-claim { font-size: clamp(1.1rem, 2vw, 1.9rem); margin-top: 2.5vh; font-weight: 600; }
+.cover-meta { font-size: clamp(0.85rem, 1.1vw, 1.05rem); margin-top: 1.6vh; }
+.slide-end { justify-content: center; }
+.end-claim { color: var(--surface); max-width: 26ch; }
+.slide-end .cover-claim { font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 700; }
+
+/* ---------- Problem slide ---------- */
+.cost-cloud { display: flex; flex-wrap: wrap; gap: 0.8vw 0.8vw; align-content: flex-start; }
+.cost-cloud li {
+  border: 1.5px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.6em 1.1em;
+  font-size: clamp(0.8rem, 1.1vw, 1.05rem);
+  color: var(--muted);
+}
+.cost-cloud .hid {
+  border-color: var(--purple);
+  background: var(--purple-wash);
+  color: var(--purple-deep);
+  font-weight: 600;
+}
+.legend-note { margin-top: 3vh; font-size: clamp(0.8rem, 1vw, 0.95rem); color: var(--muted); display: flex; align-items: center; gap: 0.6em; }
+.legend-note .dot { width: 12px; height: 12px; border-radius: 3px; background: var(--purple); display: inline-block; }
+
+/* ---------- Stats ---------- */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3vw; }
+.stat { border-top: 3px solid var(--rule); padding-top: 2vh; }
+.stat-accent { border-top-color: var(--purple); }
+.stat-label { font-size: clamp(0.8rem, 1.05vw, 1rem); color: var(--ink-2); }
+.stat-value { font-size: clamp(2.2rem, 4.6vw, 4rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin: 0.4vh 0; }
+.stat-accent .stat-value { color: var(--purple); }
+.stat-desc { font-size: clamp(0.78rem, 1vw, 0.95rem); color: var(--muted); line-height: 1.45; }
+
+/* ---------- Steps ---------- */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3vw; }
+.steps li { border-top: 3px solid var(--purple); padding-top: 2vh; }
+.step-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background: var(--purple);
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  margin-bottom: 1.4vh;
+}
+.step-t { font-size: clamp(1rem, 1.5vw, 1.35rem); font-weight: 700; margin-bottom: 0.8vh; }
+.step-d { font-size: clamp(0.82rem, 1.05vw, 1rem); color: var(--ink-2); line-height: 1.45; }
+
+.demo-q {
+  font-size: clamp(1.3rem, 2.6vw, 2.2rem);
+  font-weight: 700;
+  color: var(--purple-deep);
+  max-width: none;
+  margin-bottom: 1vh;
+}
+
+/* ---------- Warning card ---------- */
+.warn-card {
+  border: 1px solid var(--rule);
+  border-left: 5px solid var(--warning);
+  border-radius: 10px;
+  background: #fffaf0;
+  padding: 2.2vh 1.6vw;
+}
+.warn-title { font-weight: 700; display: flex; gap: 0.6em; align-items: center; font-size: clamp(0.9rem, 1.2vw, 1.1rem); }
+.warn-icon {
+  flex: none;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  background: var(--warning);
+  color: #000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+}
+.warn-sub { margin-top: 1vh; font-size: clamp(0.8rem, 1.05vw, 0.98rem); color: var(--ink-2); }
+.warn-card ul { margin-top: 1.2vh; padding-left: 1.2em; list-style: disc; }
+.warn-card li { font-size: clamp(0.8rem, 1.05vw, 0.98rem); color: var(--ink-2); margin-bottom: 0.6vh; }
+
+.do-col .col-head { color: var(--purple); }
+.dont-col { border-left: 1px solid var(--rule); padding-left: 3vw; }
+/* Opposite meaning needs an opposite mark, not just a different column. */
+.dont-col .bullets li::before { content: "\00d7"; color: var(--ink); }
+
+code { font-family: ui-monospace, Consolas, monospace; background: var(--page); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.9em; }
+
+/* ---------- Chrome ---------- */
+.deck-nav {
+  position: fixed;
+  right: 2.5vw;
+  bottom: 3vh;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  z-index: 10;
+}
+.deck-nav button {
+  font: inherit;
+  font-size: 1rem;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 50%;
+  border: 1.5px solid var(--rule);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.deck-nav button:hover { border-color: var(--purple); color: var(--purple); }
+.deck-nav button:disabled { opacity: 0.35; cursor: default; border-color: var(--rule); color: var(--ink); }
+.counter { font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 4em; text-align: center; }
+
+.progress { position: fixed; left: 0; right: 0; bottom: 0; height: 4px; background: var(--rule); z-index: 10; }
+.progress-bar { height: 100%; width: 0; background: var(--purple); transition: width 200ms ease-out; }
+
+.deck-hint {
+  position: fixed;
+  left: 2.5vw;
+  bottom: 3vh;
+  font-size: 0.8rem;
+  color: var(--muted);
+  z-index: 10;
+  transition: opacity 400ms;
+}
+.deck-hint.is-hidden { opacity: 0; }
+
+/* Dark slides need light chrome behind them */
+.deck-nav button, .counter, .deck-hint { mix-blend-mode: normal; }
+
+:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+
+@media (max-width: 860px) {
+  .two-col, .stat-row, .steps { grid-template-columns: 1fr; gap: 3vh; }
+  .dont-col { border-left: none; padding-left: 0; }
+  .slide { padding: 6vh 7vw 12vh; overflow-y: auto; justify-content: flex-start; }
+}

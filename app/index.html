@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CostBusters — quanto costa davvero un investimento</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- FR-7: static HTML so it renders even if a script fails. -->
+  <div class="disclaimer" role="note" aria-label="Avvertenza">
+    <div class="disclaimer-inner">
+      <span class="disclaimer-icon" aria-hidden="true">i</span>
+      <p>
+        <strong>Educazione finanziaria, non consulenza.</strong>
+        CostBusters mostra quanto costa uno strumento d'investimento: non dice se conviene, non consiglia di comprare,
+        vendere o mantenere e non classifica prodotti come migliori o peggiori. Per una decisione d'investimento
+        rivolgiti a un consulente abilitato.
+      </p>
+    </div>
+  </div>
+
+  <header class="site-header container">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+        <path class="brand-ghost" d="M7 29V14a9 9 0 0 1 18 0v15l-3-2.6-3 2.6-3-2.6-3 2.6-3-2.6z"/>
+        <circle class="brand-eye" cx="12.5" cy="14.5" r="1.9"/>
+        <circle class="brand-eye" cx="19.5" cy="14.5" r="1.9"/>
+      </svg>
+      <span class="brand-name">CostBusters</span>
+    </div>
+    <p class="tagline">C'è un costo nascosto nel tuo investimento? Sai chi chiamare.</p>
+  </header>
+
+  <main class="container">
+    <section class="card input-card" aria-labelledby="input-title">
+      <h2 id="input-title">1. Scegli il documento da analizzare</h2>
+      <p class="hint">
+        Prospetto, KID o report di consulenza. Il testo viene elaborato solo nel tuo browser: nulla viene inviato o salvato.
+      </p>
+
+      <div class="tabs" role="tablist" aria-label="Modalità di inserimento">
+        <button type="button" role="tab" id="tab-paste" aria-controls="panel-paste" aria-selected="true">Incolla testo</button>
+        <button type="button" role="tab" id="tab-pdf" aria-controls="panel-pdf" aria-selected="false" tabindex="-1">Carica PDF</button>
+      </div>
+
+      <div role="tabpanel" id="panel-paste" aria-labelledby="tab-paste" class="tab-panel">
+        <label for="paste-input" class="field-label">Testo del documento</label>
+        <textarea id="paste-input" rows="9" spellcheck="false"
+          placeholder="Incolla qui il testo del prospetto o del report, ad esempio la sezione dei costi…"></textarea>
+        <button id="analyze-btn" class="btn-primary" type="button">Scova i costi</button>
+      </div>
+
+      <div role="tabpanel" id="panel-pdf" aria-labelledby="tab-pdf" class="tab-panel" hidden>
+        <label class="dropzone" for="pdf-input">
+          <span class="dropzone-title">Scegli un file PDF</span>
+          <span class="dropzone-sub">Il file resta sul tuo computer: il testo viene estratto nel browser.</span>
+          <input type="file" id="pdf-input" accept="application/pdf,.pdf">
+        </label>
+        <p class="hint">
+          Funziona con PDF digitali, con testo selezionabile. I PDF scansionati come immagine non sono supportati
+          (servirebbe il riconoscimento del testo, OCR). Per leggere il PDF il browser scarica la libreria pdf.js:
+          serve una connessione internet, ma il tuo file non viene inviato da nessuna parte.
+        </p>
+      </div>
+
+      <p id="input-status" class="status" role="status" aria-live="polite"></p>
+
+      <details id="source-preview" class="source-preview" hidden>
+        <summary>Mostra il testo analizzato</summary>
+        <pre id="source-text"></pre>
+      </details>
+    </section>
+
+    <section id="results" class="results" aria-labelledby="results-title" hidden>
+      <div class="results-head">
+        <h2 id="results-title">2. Quanto costa: <span id="doc-label"></span></h2>
+        <div class="horizon-group">
+          <span class="field-label" id="horizon-label">Tra quanti anni?</span>
+          <div class="horizon-picker" id="horizon-picker" role="group" aria-labelledby="horizon-label"></div>
+        </div>
+      </div>
+
+      <div id="warnings"></div>
+
+      <div class="card summary">
+        <div class="hero">
+          <p class="hero-label" id="hero-label"></p>
+          <p class="hero-value" id="hero-value"></p>
+          <p class="hero-sub" id="hero-sub"></p>
+        </div>
+        <dl class="tiles">
+          <div class="tile">
+            <dt>Valore lordo</dt>
+            <dd>
+              <span class="tile-value" id="tile-gross"></span>
+              <span class="tile-desc">Quanto avresti con il rendimento ipotizzato se non ci fossero costi, tasse e inflazione.</span>
+            </dd>
+          </div>
+          <div class="tile">
+            <dt><span class="key key-explicit" aria-hidden="true"></span>Costi espliciti</dt>
+            <dd>
+              <span class="tile-value" id="tile-explicit"></span>
+              <span class="tile-desc">Quanto paghi in commissioni scritte nel documento: ingresso, gestione, consulenza, uscita.</span>
+            </dd>
+          </div>
+          <div class="tile">
+            <dt><span class="key key-implicit" aria-hidden="true"></span>Costi impliciti</dt>
+            <dd>
+              <span class="tile-value" id="tile-implicit"></span>
+              <span class="tile-desc">Quanto perdi senza vederlo in bolletta: TER, transazioni, spread, tasse e inflazione.</span>
+            </dd>
+          </div>
+          <div class="tile">
+            <dt><span class="key key-net" aria-hidden="true"></span>Valore netto</dt>
+            <dd>
+              <span class="tile-value" id="tile-net"></span>
+              <span class="tile-desc">Quanto ti resta davvero, già convertito in euro di oggi.</span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="card chart-card">
+        <h3>Dove finisce il valore del tuo investimento</h3>
+        <p class="sub">
+          Ogni barra è il valore lordo: prima i costi che se ne vanno, poi in blu quello che ti resta in euro di oggi.
+          Passa sopra una barra per i dettagli, premila per cambiare orizzonte.
+        </p>
+        <div class="legend" id="legend"></div>
+        <div class="chart" id="chart"></div>
+        <details class="table-view">
+          <summary>Vedi i dati in tabella</summary>
+          <div id="chart-table"></div>
+        </details>
+      </div>
+
+      <div class="cost-columns">
+        <section class="card" aria-labelledby="explicit-title">
+          <h3 id="explicit-title"><span class="key key-explicit" aria-hidden="true"></span>Costi espliciti</h3>
+          <p class="sub">Le commissioni scritte chiaramente nel documento.</p>
+          <ul id="explicit-list" class="cost-list"></ul>
+        </section>
+        <section class="card" aria-labelledby="implicit-title">
+          <h3 id="implicit-title"><span class="key key-implicit" aria-hidden="true"></span>Costi impliciti</h3>
+          <p class="sub">I costi fantasma: non compaiono come commissione, ma riducono quello che ti resta.</p>
+          <ul id="implicit-list" class="cost-list"></ul>
+        </section>
+      </div>
+
+      <section class="card assumptions-card" aria-labelledby="assumptions-title">
+        <h3 id="assumptions-title">Ipotesi di calcolo</h3>
+        <p class="sub">Puoi cambiarle: grafico e cifre si aggiornano subito.</p>
+        <div class="assumption-grid">
+          <label class="field">
+            <span class="field-label">Capitale investito (€)</span>
+            <input type="number" id="in-capital" min="1" step="1000" inputmode="decimal">
+          </label>
+          <label class="field">
+            <span class="field-label">Rendimento lordo ipotizzato (% annuo)</span>
+            <input type="number" id="in-return" min="-20" max="20" step="0.5" inputmode="decimal">
+            <span class="field-help">Solo illustrativo, uguale per ogni documento: non è una previsione.</span>
+          </label>
+          <label class="field">
+            <span class="field-label">Inflazione (% annuo)</span>
+            <input type="number" id="in-inflation" min="0" max="20" step="0.1" inputmode="decimal">
+          </label>
+          <label class="field">
+            <span class="field-label">Aliquota fiscale sul guadagno (%)</span>
+            <input type="number" id="in-tax" min="0" max="100" step="0.5" inputmode="decimal">
+          </label>
+        </div>
+
+        <details class="formula" open>
+          <summary>Formule e passaggi (orizzonte <span id="formula-horizon"></span>)</summary>
+          <ol id="formula-steps" class="formula-steps"></ol>
+          <ul class="formula-notes">
+            <li>I costi sono applicati uno alla volta in quest'ordine: ingresso, gestione, consulenza, uscita, TER, transazioni,
+              spread, tasse, inflazione. L'impatto in euro di ciascuno tiene conto di quelli già applicati.</li>
+            <li>La commissione di uscita e la metà di vendita dello spread si applicano ipotizzando di disinvestire alla fine dell'orizzonte.</li>
+            <li>Se il TER include la commissione di gestione, come costo aggiuntivo contiamo solo la differenza.</li>
+            <li>Le tasse si calcolano solo sul guadagno, dopo i costi. L'inflazione converte il valore finale in euro di oggi.</li>
+            <li>Sono stime semplificate a scopo educativo: i costi reali possono variare, ad esempio per imposta di bollo o commissioni dell'intermediario.</li>
+          </ul>
+        </details>
+      </section>
+    </section>
+  </main>
+
+  <footer class="container site-footer">
+    <p>CostBusters · prototipo per l'hackathon di ottobre 2026 · Nessun dato viene salvato o inviato.</p>
+  </footer>
+
+  <script src="js/constants.js"></script>
+  <script src="js/glossary.js"></script>
+  <script src="js/cost-extractor.js"></script>
+  <script src="js/tco-calculator.js"></script>
+  <script src="js/pdf-extractor.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
