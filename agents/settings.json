@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(start:*)",
+      "Bash(open:*)",
+      "Bash(ls:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/controlla-confine.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
